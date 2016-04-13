@@ -103,7 +103,7 @@ def gradient(w,pairs):
                 out = 1  
             else:
                 continue
-            gradient -= out / (1/(np.exp(w[pair[1]]-w[pair[0]])) +1 )
+            gradient -= out / (1/((np.exp(w[pair[1]]-w[pair[0]]))/2) +1 ) / 2
 
         grad.append(-gradient)
         
@@ -269,8 +269,8 @@ if __name__ == '__main__':
     # video_nums = [625,1250,2500,5000,10000,20000]
     # num_edges_pct = [0.01,0.1,1,10,100]
 
-    video_nums = [10000]
-    num_edges_pct = [0.01,0.1,1,2.17]
+    video_nums = [1250]
+    num_edges_pct = [0.01,0.1,1,2.17, 3]
 
     for iteration in range(7):
         for video_num in video_nums:
@@ -301,7 +301,7 @@ if __name__ == '__main__':
                                         tol = 10,
                                         options={'disp': False})
 
-                filename = 'result/'+ str(video_num)+'_at_'+str(num_edge)+'_iter_'+str(iteration)+'.p'
+                filename = 'result/sigma_2_'+ str(video_num)+'_at_'+str(num_edge)+'_iter_'+str(iteration)+'.p'
     #             print float(time.time() - start_time)
                 pickle.dump( dict({'x':res.x, 'video_score':video_score}), open( filename, "wb" ) )
                 print  'Time on Iteration %d with Video Number %d and edges %.2f : %.1f seconds' %(iteration, video_num, num_edge_pct, float(time.time() - start_time))
