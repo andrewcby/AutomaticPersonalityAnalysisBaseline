@@ -1,0 +1,8 @@
+*** Result_Analysis.ipynb ***
+
+Reads the resulted .p pickle files from ./result folder and calculate R^2 score and accuracy (to be added)
+
+*** Pairwise_New_0411.py ***
+
+Generate data with 7 iterations and tolerence of 10. Currently runs for a specific number of videos. This can be changed by commenting out corresponding part.
+
