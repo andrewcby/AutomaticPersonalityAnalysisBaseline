@@ -269,10 +269,13 @@ if __name__ == '__main__':
     # video_nums = [625,1250,2500,5000,10000,20000]
     # num_edges_pct = [0.01,0.1,1,10,100]
 
-    video_nums = [1250]
-    num_edges_pct = [0.01,0.1,1,2.17, 3]
+    video_nums = [5000,10000]
+    # num_edges_pct = [0.01,0.1,1,10,100]
 
-    for iteration in range(7):
+    # video_nums = [10000]
+    num_edges_pct = [0.1, 0.5, 1, 2.17, 3]
+
+    for iteration in range(1):
         for video_num in video_nums:
             for num_edge_pct in num_edges_pct:
 
@@ -287,11 +290,26 @@ if __name__ == '__main__':
                 resolution = 0.1
                 video_score = np.round(video_score/resolution)*resolution
 
-                w = np.ones(video_num)
-                print video_num, num_edge
-                # test_pairs = [pairs_truth[i] for i in random.sample(range(total_pairs),num_edge)]
-                test_pairs = init_graph(video_num, num_edge, video_score)
+                
+                pairs_truth = []
 
+                for i in range(len(video_score)-1):
+                    for j in range(i+1, len(video_score)):
+                        if video_score[i] > video_score[j]:
+                            pairs_truth.append((i,j))
+                        else:
+                            pairs_truth.append((j,i))
+
+                total_pairs = len(pairs_truth)  
+
+
+                w = np.ones(video_num)
+                test_pairs = [pairs_truth[i] for i in random.sample(range(total_pairs),num_edge)]
+    #             test_pairs = init_graph(video_num, num_edge, video_score)
+                for i in range(len(test_pairs)):
+                    flip = noise_generation(video_score, test_pairs[i])
+                    if flip:
+                        test_pairs[i] = (test_pairs[i][1], test_pairs[i][0])
                 start_time = time.time()
 
                 res = optimize.minimize(mle, w, 
@@ -301,8 +319,6 @@ if __name__ == '__main__':
                                         tol = 10,
                                         options={'disp': False})
 
-                filename = 'result/sigma_2_'+ str(video_num)+'_at_'+str(num_edge)+'_iter_'+str(iteration)+'.p'
-    #             print float(time.time() - start_time)
+                filename = 'random_error_'+ str(video_num)+'_at_'+str(num_edge)+'_iter_00'+str(iteration)+'.p'
                 pickle.dump( dict({'x':res.x, 'video_score':video_score}), open( filename, "wb" ) )
-                print  'Time on Iteration %d with Video Number %d and edges %.2f : %.1f seconds' %(iteration, video_num, num_edge_pct, float(time.time() - start_time))
-
+                print  'Time with %d videos and %.2f edges: %.1f seconds' %(video_num, num_edge, float(time.time() - start_time))
