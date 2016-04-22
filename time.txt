@@ -1,8 +1,0 @@
-Time with 625 videos and 625.00 edges: 0.2 seconds
-Time with 625 videos and 2011.00 edges: 0.8 seconds
-Time with 625 videos and 4023.00 edges: 1.6 seconds
-Time with 625 videos and 8731.00 edges: 3.3 seconds
-Time with 625 videos and 12070.00 edges: 4.6 seconds
-Time with 1250 videos and 1250.00 edges: 1.1 seconds
-Time with 1250 videos and 4456.00 edges: 3.5 seconds
-Time with 1250 videos and 8913.00 edges: 6.8 seconds
