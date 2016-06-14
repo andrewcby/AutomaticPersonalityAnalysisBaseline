@@ -13,8 +13,8 @@ Then the steps are as follows:
 3. Then modify the image path for train and validation images. The process will take a long time - 2 to 3 seconds for each image, on a 2012 Macbook Air with NO GPU. It might be dramatically faster if you use GPU. You can do so by replaceing caffe.set_mode_cpu() in cell 3 by caffe.set_mode_gpu().
 
 4. You will get 2 pickle files, Validation_data.p and Raw_data6000.p, both of which can be found in this repo. They are both of a pandas dataframe, with format like 
-|VideoName|E|A|C|N|O
----|---|---|---|---|---|---
-851|-9BZ8A9U7TE.002.mp4|0.579439|0.494505|0.417476|0.46875|0.544444
+
+    | VideoName           |E        |A        |C        |N        |O
+851 |-9BZ8A9U7TE.002.mp4  |0.579439 |0.494505 |0.417476 |0.46875  |0.544444
 
 5. Use Baseline.ipynb to generate the baseline results. This file contains comments and should be easy to read. 
